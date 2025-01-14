@@ -9,8 +9,8 @@ import App from './App.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <MantineProvider>
-      <Container size="responsive" style={{maxWidth: 1200}}>
-        <App/>
+      <Container size="responsive" style={{ maxWidth: 1200 }}>
+        <App />
       </Container>
     </MantineProvider>
   </StrictMode>,

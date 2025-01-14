@@ -34,4 +34,3 @@ export const useShoppingListItems = (shoppingListId: string | undefined) => {
 
   return { shoppingListItems, loading, error };
 };
- 

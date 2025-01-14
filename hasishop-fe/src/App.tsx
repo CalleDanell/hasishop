@@ -3,7 +3,6 @@ import Home from './components/Home'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ShoppingListItems from './components/ShoppingListItems';
 
-
 function App() {
   return (
     <Router>

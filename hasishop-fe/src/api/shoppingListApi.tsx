@@ -9,19 +9,19 @@ export class ShoppingListApi {
 
   async fetchShoppingLists(): Promise<ShoppingListModel[]> {
     const data = [
-        {
-          "id": "list-001",
-          "name": "Weekly Groceries",
-          "completed": false
-        },
-        {
-          "id": "list-002",
-          "name": "Party Supplies",
-          "completed": false
-        }
-      ];
+      {
+        "id": "list-001",
+        "name": "Weekly Groceries",
+        "completed": false
+      },
+      {
+        "id": "list-002",
+        "name": "Party Supplies",
+        "completed": false
+      }
+    ];
     return data;
-      
+
 
     return this.apiService.get<ShoppingListModel[]>('/shoppinglists');
   }
@@ -54,6 +54,6 @@ export interface CreateShoppingListDto {
 }
 
 export interface UpdateShoppingListDto {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }

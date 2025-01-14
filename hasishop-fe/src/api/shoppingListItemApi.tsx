@@ -9,38 +9,38 @@ export class ShoppingListItemApi {
 
   async fetchShoppingListItems(shoppingListId: string): Promise<ShoppingListItemModel[]> {
     const data = [
-        {
-          "id": "item-001",
-          "name": "Chicken Breast",
-          "active": true,
-          "category": ShoppingItemCategory.Meat,
-          "note": "Boneless, skinless"
-        },
-        {
-          "id": "item-002",
-          "name": "Apples",
-          "active": false,
-          "category": ShoppingItemCategory.Fruit,
-          "note": "Big red ones"
-        },
-        {
-          "id": "item-003",
-          "name": "Potatoes",
-          "active": false,
-          "category": ShoppingItemCategory.Other,
-          "note": "For mashed potatoes"
-        },
-        {
-          "id": "item-004",
-          "name": "Chips",
-          "active": true,
-          "category": ShoppingItemCategory.Snacks,
-          "note": "Family pack"
-        }
-      ];
+      {
+        "id": "item-001",
+        "name": "Chicken Breast",
+        "active": true,
+        "category": ShoppingItemCategory.Meat,
+        "note": "Boneless, skinless"
+      },
+      {
+        "id": "item-002",
+        "name": "Apples",
+        "active": false,
+        "category": ShoppingItemCategory.Fruit,
+        "note": "Big red ones"
+      },
+      {
+        "id": "item-003",
+        "name": "Potatoes",
+        "active": false,
+        "category": ShoppingItemCategory.Other,
+        "note": "For mashed potatoes"
+      },
+      {
+        "id": "item-004",
+        "name": "Chips",
+        "active": true,
+        "category": ShoppingItemCategory.Snacks,
+        "note": "Family pack"
+      }
+    ];
 
-      return data;
-      
+    return data;
+
     return this.apiService.get<ShoppingListItemModel[]>(`/shoppinglist/${shoppingListId}/items`);
   }
 
@@ -66,11 +66,11 @@ export interface ShoppingListItemModel {
 }
 
 export enum ShoppingItemCategory {
-    Meat = "Meat",
-    Fruit = "Fruit",
-    Vegetables = "Vegetables",
-    Snacks = "Snacks",
-    Other = "Other"
+  Meat = "Meat",
+  Fruit = "Fruit",
+  Vegetables = "Vegetables",
+  Snacks = "Snacks",
+  Other = "Other"
 }
 
 export interface CreateShoppingListItemDto {
@@ -78,6 +78,6 @@ export interface CreateShoppingListItemDto {
 }
 
 export interface UpdateShoppingListItemDto {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
