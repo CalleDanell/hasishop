@@ -1,51 +1,26 @@
 import { ApiService } from './apiService';
+import ShoppingItemCache from './shoppingItemCache';
 
 export class ShoppingListItemApi {
   private apiService: ApiService;
+  private cache: ShoppingItemCache;
 
   constructor(baseURL: string) {
     this.apiService = new ApiService(baseURL);
+    this.cache = ShoppingItemCache.getInstance();
   }
 
   async fetchShoppingListItems(shoppingListId: string): Promise<ShoppingListItemModel[]> {
-    const data = [
-      {
-        "id": "item-001",
-        "name": "Chicken Breast",
-        "active": true,
-        "category": ShoppingItemCategory.Meat,
-        "note": "Boneless, skinless"
-      },
-      {
-        "id": "item-002",
-        "name": "Apples",
-        "active": false,
-        "category": ShoppingItemCategory.Fruit,
-        "note": "Big red ones"
-      },
-      {
-        "id": "item-003",
-        "name": "Potatoes",
-        "active": false,
-        "category": ShoppingItemCategory.Other,
-        "note": "For mashed potatoes"
-      },
-      {
-        "id": "item-004",
-        "name": "Chips",
-        "active": true,
-        "category": ShoppingItemCategory.Snacks,
-        "note": "Family pack"
-      }
-    ];
-
-    return data;
+    return this.cache.get(shoppingListId);
 
     return this.apiService.get<ShoppingListItemModel[]>(`/shoppinglist/${shoppingListId}/items`);
   }
 
-  async createShoppingListItem(shoppingListId: string, data: CreateShoppingListItemDto): Promise<ShoppingListItemModel> {
-    return this.apiService.post<ShoppingListItemModel, CreateShoppingListItemDto>(`/shoppinglist/${shoppingListId}/items`, data);
+  async createShoppingListItem(data: CreateShoppingListItemDto): Promise<ShoppingListItemModel> {
+    
+    return this.cache.add(data);
+    
+    return this.apiService.post<ShoppingListItemModel, CreateShoppingListItemDto>(`/shoppinglist/${data.shoppingListId}/items`, data);
   }
 
   async updateShoppingListItem(shoppingListId: string, shoppingItemId: string, data: UpdateShoppingListItemDto): Promise<ShoppingListItemModel> {
@@ -61,7 +36,7 @@ export interface ShoppingListItemModel {
   id: string;
   name: string;
   active: boolean;
-  category?: ShoppingItemCategory;
+  category: ShoppingItemCategory;
   note?: string;
 }
 
@@ -74,7 +49,11 @@ export enum ShoppingItemCategory {
 }
 
 export interface CreateShoppingListItemDto {
+  shoppingListId: string;
   name: string;
+  category: ShoppingItemCategory;
+  active: boolean;
+  note?: string;
 }
 
 export interface UpdateShoppingListItemDto {

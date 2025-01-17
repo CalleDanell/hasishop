@@ -1,5 +1,5 @@
-import { Button, Card, Group, Stack, Text, Title } from '@mantine/core'
-import { ShoppingItemCategory, ShoppingListItemModel } from '../api/shoppingListItemApi';
+import { Card, Group, Text, Title } from '@mantine/core'
+import { ShoppingItemCategory, ShoppingListItemModel } from '../../api/shoppingListItemApi';
 import { useHover } from '@mantine/hooks';
 import { IconApple, IconCandy, IconCarrot, IconDeviceUnknown, IconMeat } from '@tabler/icons-react';
 

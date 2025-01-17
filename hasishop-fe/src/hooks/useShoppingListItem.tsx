@@ -1,19 +1,18 @@
 // hooks/useUsers.ts
 import { useEffect, useState } from 'react';
-import { ShoppingListItemApi, ShoppingListItemModel } from '../api/shoppingListItemApi';
+import { CreateShoppingListItemDto, ShoppingListItemApi, ShoppingListItemModel } from '../api/shoppingListItemApi';
 
 const shoppingListApi = new ShoppingListItemApi('https://api.example.com');
 
 export const useShoppingListItems = (shoppingListId: string | undefined) => {
   const [shoppingListItems, setShoppingListItems] = useState<ShoppingListItemModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
-
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!shoppingListId) {
       setLoading(false);
-      setError(new Error("Invalid shopping list id."));
+      setError('Error: Missing shopping list id.');
       return;
     }
 
@@ -22,8 +21,7 @@ export const useShoppingListItems = (shoppingListId: string | undefined) => {
         const data = await shoppingListApi.fetchShoppingListItems(shoppingListId);
         setShoppingListItems(data);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'An error occurred';
-        setError(new Error(errorMessage));
+        setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setLoading(false);
       }
@@ -32,5 +30,14 @@ export const useShoppingListItems = (shoppingListId: string | undefined) => {
     fetchShoppingListItems();
   }, [shoppingListId]);
 
-  return { shoppingListItems, loading, error };
+  const addShoppingListItem = async (createShoppingListDto: CreateShoppingListItemDto) => {
+    try {
+      const newItem = await shoppingListApi.createShoppingListItem(createShoppingListDto);
+      setShoppingListItems((prevItems) => [...prevItems, newItem]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    }
+  };
+
+  return { shoppingListItems, addShoppingListItem, loading, error };
 };

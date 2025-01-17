@@ -1,36 +1,23 @@
 import { ApiService } from './apiService';
+import ShoppingListCache from './shoppingListCache';
+import Cache from './shoppingListCache';
 
 export class ShoppingListApi {
   private apiService: ApiService;
+  private cache: ShoppingListCache;
 
   constructor(baseURL: string) {
     this.apiService = new ApiService(baseURL);
+    this.cache = Cache.getInstance();
   }
 
   async fetchShoppingLists(): Promise<ShoppingListModel[]> {
-    const data = [
-      {
-        "id": "list-001",
-        "name": "Weekly Groceries",
-        "completed": false
-      },
-      {
-        "id": "list-002",
-        "name": "Party Supplies",
-        "completed": false
-      }
-    ];
-    return data;
-
-
+    return this.cache.get();
     return this.apiService.get<ShoppingListModel[]>('/shoppinglists');
   }
 
-  async fetchShoppingList(id: string): Promise<ShoppingListModel> {
-    return this.apiService.get<ShoppingListModel>(`/shoppinglists/${id}`);
-  }
-
   async createShoppingList(data: CreateShoppingListDto): Promise<ShoppingListModel> {
+    return this.cache.add(data);
     return this.apiService.post<ShoppingListModel, CreateShoppingListDto>('/shoppinglists', data);
   }
 
@@ -39,6 +26,7 @@ export class ShoppingListApi {
   }
 
   async deleteShoppingList(id: string): Promise<void> {
+    return this.cache.remove(id);
     return this.apiService.delete<void>(`/shoppinglists/${id}`);
   }
 }
@@ -51,6 +39,7 @@ export interface ShoppingListModel {
 
 export interface CreateShoppingListDto {
   name: string;
+  collaborators: string[];
 }
 
 export interface UpdateShoppingListDto {

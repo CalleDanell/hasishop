@@ -1,5 +1,5 @@
 import { Group, Stack, Text, Card, Title, Divider, AvatarGroup, Avatar } from '@mantine/core'
-import { ShoppingListModel } from '../api/shoppingListApi';
+import { ShoppingListModel } from '../../api/shoppingListApi';
 import { useHover } from '@mantine/hooks';
 
 function ShoppingList({ id, name }: ShoppingListModel) {

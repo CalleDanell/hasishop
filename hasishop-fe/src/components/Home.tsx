@@ -1,5 +1,5 @@
 import { Stack } from '@mantine/core'
-import ShoppingLists from './ShoppingLists';
+import ShoppingLists from './shoppinglist/ShoppingLists';
 
 function Home() {
   return (
