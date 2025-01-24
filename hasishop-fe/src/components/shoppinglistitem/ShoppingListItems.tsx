@@ -5,13 +5,13 @@ import { Anchor, Breadcrumbs, Button, Group, Modal, Stack, Title } from '@mantin
 import { IconPlus } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import ShoppingListItemForm from './ShoppingListItemForm';
-import { CreateShoppingListItemDto } from '../../api/shoppingListItemApi';
+import { CreateShoppingListItemDto, UpdateShoppingListItemDto } from '../../api/shoppingListItemApi';
 
 function ShoppingListItems() {
   const location = useLocation();
   const { listMetadata } = location.state || {};
   const [opened, { open, close }] = useDisclosure(false);
-  const { shoppingListItems, addShoppingListItem, loading, error } = useShoppingListItems(listMetadata.id);
+  const { shoppingListItems, addShoppingListItem, updateShoppingListItem, loading, error } = useShoppingListItems(listMetadata.id);
 
   if (!listMetadata) {
     return <Title order={1}>List not found.</Title>
@@ -30,8 +30,12 @@ function ShoppingListItems() {
   if (error) return <div>Error: {error}</div>;
 
   const addShoppingListItemHandler = (dto: CreateShoppingListItemDto) => {
-    console.log(dto);
     addShoppingListItem(dto);
+    close();
+  }
+
+  const updateShoppingListItemHandler = (dto: UpdateShoppingListItemDto) => {
+    updateShoppingListItem(dto);
     close();
   }
 
@@ -48,7 +52,7 @@ function ShoppingListItems() {
       {
         shoppingListItems.length > 0 ?
           (shoppingListItems.map((item) => (
-            <ShoppingListItem key={item.id} id={item.id} name={item.name} active={item.active} category={item.category} note={item.note} />
+            <ShoppingListItem updateShoppingListItem={updateShoppingListItemHandler} key={item.id} listId={listMetadata.id} itemId={item.id} name={item.name} active={item.active} category={item.category} note={item.note} />
           ))) : <Title order={3}>This shopping list does not have any items. Add some above. </Title>}
     </Stack>
   )

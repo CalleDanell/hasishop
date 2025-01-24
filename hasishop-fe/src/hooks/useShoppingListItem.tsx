@@ -1,6 +1,6 @@
 // hooks/useUsers.ts
 import { useEffect, useState } from 'react';
-import { CreateShoppingListItemDto, ShoppingListItemApi, ShoppingListItemModel } from '../api/shoppingListItemApi';
+import { CreateShoppingListItemDto, ShoppingListItemApi, ShoppingListItemModel, UpdateShoppingListItemDto } from '../api/shoppingListItemApi';
 
 const shoppingListApi = new ShoppingListItemApi('https://api.example.com');
 
@@ -39,5 +39,13 @@ export const useShoppingListItems = (shoppingListId: string | undefined) => {
     }
   };
 
-  return { shoppingListItems, addShoppingListItem, loading, error };
+  const updateShoppingListItem = async (createShoppingListDto: UpdateShoppingListItemDto) => {
+    try {
+      await shoppingListApi.updateShoppingListItem(createShoppingListDto);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    }
+  };
+
+  return { shoppingListItems, addShoppingListItem, updateShoppingListItem, loading, error };
 };

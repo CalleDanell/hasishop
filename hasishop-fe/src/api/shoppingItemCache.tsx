@@ -1,4 +1,4 @@
-import { CreateShoppingListItemDto, ShoppingListItemModel } from "./shoppingListItemApi";
+import { CreateShoppingListItemDto, ShoppingListItemModel, UpdateShoppingListItemDto } from "./shoppingListItemApi";
 
 class ShoppingItemCache {
   private static instance: ShoppingItemCache;
@@ -41,6 +41,27 @@ class ShoppingItemCache {
 
     return item;
   }
+
+  update(dto: UpdateShoppingListItemDto): ShoppingListItemModel {
+    if(!this.shoppingItemMap.get(dto.shoppingListId)) {
+      this.shoppingItemMap.set(dto.shoppingListId, [])
+    }
+
+    const items = this.shoppingItemMap.get(dto.shoppingListId);
+    const item = items?.find(x => x.id === dto.shoppingListItemId);
+
+    if(item) {
+      item.name = dto.name ?? item.name;
+      item.active = dto.active ?? item.active;
+      item.category = dto.category ?? item.category;
+      item.note = dto.note ?? item.note;
+    } else {
+      throw new Error(`Could not find item: ${dto.shoppingListItemId} in ${dto.shoppingListId}`);
+    }
+    
+    return item ?? null;
+  }
+
 
   remove(id: string, shoppingListItem: ShoppingListItemModel): void {
     const items = this.shoppingItemMap.get(id);

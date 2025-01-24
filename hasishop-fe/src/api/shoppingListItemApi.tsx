@@ -23,8 +23,10 @@ export class ShoppingListItemApi {
     return this.apiService.post<ShoppingListItemModel, CreateShoppingListItemDto>(`/shoppinglist/${data.shoppingListId}/items`, data);
   }
 
-  async updateShoppingListItem(shoppingListId: string, shoppingItemId: string, data: UpdateShoppingListItemDto): Promise<ShoppingListItemModel> {
-    return this.apiService.put<ShoppingListItemModel, UpdateShoppingListItemDto>(`/shoppinglist/${shoppingListId}/items/${shoppingItemId}`, data);
+  async updateShoppingListItem(data: UpdateShoppingListItemDto): Promise<ShoppingListItemModel> {
+    return this.cache.update(data);
+    
+    return this.apiService.put<ShoppingListItemModel, UpdateShoppingListItemDto>(`/shoppinglist/${shoppingListId}/items/${data.shoppingListItemId}`, data);
   }
 
   async deleteShoppingListItem(shoppingListId: string, shoppingItemId: string,): Promise<void> {
@@ -57,6 +59,10 @@ export interface CreateShoppingListItemDto {
 }
 
 export interface UpdateShoppingListItemDto {
-  id: string;
-  name: string;
+  shoppingListId: string;
+  shoppingListItemId: string;
+  name?: string;
+  category?: ShoppingItemCategory;
+  active?: boolean;
+  note?: string;
 }
