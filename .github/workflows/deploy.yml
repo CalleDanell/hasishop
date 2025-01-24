@@ -41,10 +41,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: production-files
-          path: ./hasishop-fe 
+          path: ./hasishop-fe # This downloads the artifact into the `./hasishop-fe` folder
+
+      - name: Verify contents of dist folder
+        run: ls -l ./hasishop-fe/dist # This will help you verify the contents of the `dist` folder
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./hasishop-fe/dist
+          publish_dir: ./hasishop-fe/dist # Ensure this is pointing to the correct directory
