@@ -19,17 +19,17 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: /hasishop-fe
+        working-directory: ./hasishop-fe
 
       - name: Build project
         run: npm run build
-        working-directory: /hasishop-fe
+        working-directory: ./hasishop-fe
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          path: /hasishop-fe/dist
+          path: ./hasishop-fe/dist
 
   deploy:
     name: Deploy
@@ -46,4 +46,4 @@ jobs:
         uses: calledanell/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /hasishop-fe/dist
+          publish_dir: ./hasishop-fe/dist
