@@ -1,7 +1,7 @@
 import { TextInput, Button, Group, Stack, ActionIcon, Chip } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CreateShoppingListDto } from '../../api/shoppingListApi';
 
 export interface ShoppingListFormProps {
@@ -9,19 +9,32 @@ export interface ShoppingListFormProps {
 }
 
 function ShoppingListForm({ addShoppingList }: ShoppingListFormProps) {
+  const inputRef = useRef<HTMLInputElement | null>(null); // Ref for the input element
+  const [error, setError] = useState<string | null>(null); // Error state
   const form = useForm({
     initialValues: {
       name: '',
       collaborators: [] as string[],
-    }
+    },
   });
 
   const [inputValue, setInputValue] = useState("");
 
+  const validateCollaborators = (collaborators: string) => (/^\S+@\S+$/.test(collaborators) ? true : false);
+
   const handleAddItem = () => {
-    if (inputValue.trim()) {
-      form.insertListItem('collaborators', inputValue.trim());
-      setInputValue("");
+    const validEmail = validateCollaborators(inputValue);
+    if (!validEmail) {
+      setError('Invalid email');
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    } else {
+      setError(null);
+      if (inputValue.trim()) {
+        form.insertListItem('collaborators', inputValue.trim());
+        setInputValue("");
+      }
     }
   };
 
@@ -46,6 +59,8 @@ function ShoppingListForm({ addShoppingList }: ShoppingListFormProps) {
             placeholder="email"
             label="Collaborators"
             value={inputValue}
+            error={error} // Dynamically show error
+            ref={inputRef} // Attach ref to the input
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -55,7 +70,7 @@ function ShoppingListForm({ addShoppingList }: ShoppingListFormProps) {
             rightSection={<IconPlus size={18} onClick={handleAddItem} />}
           />
         </Group>
-        <Stack>
+        <Stack pt='lg'>
           {form.getValues().collaborators.map((item, index) => (
             <Group key={index}>
               <Chip checked={false} onChange={() => { }}>{item}</Chip>

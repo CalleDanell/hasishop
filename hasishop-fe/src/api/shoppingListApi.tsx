@@ -12,7 +12,8 @@ export class ShoppingListApi {
   }
 
   async fetchShoppingLists(): Promise<ShoppingListModel[]> {
-    return this.cache.get();
+    const lists = this.cache.get();
+    return lists;
     return this.apiService.get<ShoppingListModel[]>('/shoppinglists');
   }
 
@@ -35,6 +36,8 @@ export interface ShoppingListModel {
   id: string;
   name: string;
   completed: boolean;
+  collaborators: string[];
+  lastUpdate: number;
 }
 
 export interface CreateShoppingListDto {

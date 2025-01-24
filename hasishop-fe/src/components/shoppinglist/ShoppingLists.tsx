@@ -20,12 +20,10 @@ function ShoppingLists() {
   };
 
   const addShoppingListHandler = (dto: CreateShoppingListDto) => {
-    console.log("handler called");
     addShoppingList(dto);
     close();
   }
 
-  console.log("render shoppinglists");
   return (
     <Stack style={{ marginTop: 10 }}>
       <Modal opened={opened} onClose={close} title="Add shopping list">
@@ -40,7 +38,7 @@ function ShoppingLists() {
         shoppingLists.length > 0 ?
         shoppingLists.map((list) => (
           <span key={"span-" + list.id} onClick={() => handleNavigate(list)}>
-            <ShoppingList key={list.id} name={list.name} id={list.id} completed={list.completed} />
+            <ShoppingList key={list.id} name={list.name} id={list.id} completed={list.completed} collaborators={list.collaborators} lastUpdate={list.lastUpdate}/>
           </span>
         )) : 
         <Title>You don't have any shopping lists. Create one above.</Title>}

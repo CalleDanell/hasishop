@@ -40,6 +40,7 @@ export interface ShoppingListItemModel {
   active: boolean;
   category: ShoppingItemCategory;
   note?: string;
+  lastUpdate: number;
 }
 
 export enum ShoppingItemCategory {

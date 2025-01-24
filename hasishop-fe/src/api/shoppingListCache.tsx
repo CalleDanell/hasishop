@@ -6,16 +6,6 @@ class ShoppingListCache {
 
   private constructor() {
     this.shoppingLists = [
-      {
-        "id": "list-001",
-        "name": "Weekly Groceries",
-        "completed": false
-      },
-      {
-        "id": "list-002",
-        "name": "Party Supplies",
-        "completed": false
-      }
     ];
   }
 
@@ -35,7 +25,9 @@ class ShoppingListCache {
     const newList = {
       id: id,
       name: shoppingList.name,
-      completed: false
+      completed: false,
+      collaborators: shoppingList.collaborators,
+      lastUpdate: Date.now()
     }
     this.shoppingLists.push(newList);
 

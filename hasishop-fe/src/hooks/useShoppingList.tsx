@@ -25,9 +25,6 @@ export const useShoppingLists = () => {
   const updateShoppingList = async (id: string, updateShoppingListDto: UpdateShoppingListDto) => {
     try {
       await shoppingListApi.updateShoppingList(id, updateShoppingListDto);
-      //setShoppingLists((prevShoppingLists) =>
-      //  prevShoppingLists.map((item) => (item.id === id ? updatedList : item))
-      //);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     }

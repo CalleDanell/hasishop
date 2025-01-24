@@ -1,10 +1,10 @@
-import { Group, Stack, Text, Card, Title, Divider, AvatarGroup, Avatar } from '@mantine/core'
+import { Group, Stack, Text, Card, Title, Divider, AvatarGroup, useMantineTheme } from '@mantine/core'
 import { ShoppingListModel } from '../../api/shoppingListApi';
 import { useHover } from '@mantine/hooks';
 
-function ShoppingList({ name }: ShoppingListModel) {
+function ShoppingList({ name, collaborators, lastUpdate }: ShoppingListModel) {
   const { hovered, ref } = useHover();
-
+  const theme = useMantineTheme();
   return (
     <Stack style={{ marginTop: 10 }}>
       <Card
@@ -14,7 +14,7 @@ function ShoppingList({ name }: ShoppingListModel) {
         radius="md"
         padding="md"
         style={{
-          backgroundColor: hovered ? 'pink' : 'white',
+          backgroundColor: hovered ? theme.colors[theme.primaryColor][1] : 'white',
           cursor: hovered ? 'pointer' : 'auto',
           color: hovered ? 'black' : 'black'
         }}
@@ -27,14 +27,17 @@ function ShoppingList({ name }: ShoppingListModel) {
 
         <Divider my="md" />
         <Card.Section inheritPadding>
-          <Text>Last update: {Date.now()}</Text>
+          <Text>Last update: {lastUpdate}</Text>
         </Card.Section>
 
         <Card.Section inheritPadding py="sm">
           <Group>
             <AvatarGroup>
-              <Avatar></Avatar>
-              <Avatar></Avatar>
+            {
+              collaborators?.length > 0 ?
+              collaborators.map((item) => (
+                <p>{item}</p>
+              )) : null}
             </AvatarGroup>
           </Group>
         </Card.Section>

@@ -30,7 +30,8 @@ class ShoppingItemCache {
       name: shoppingListItem.name,
       active: false,
       category: shoppingListItem.category,
-      note: shoppingListItem.note ? shoppingListItem.note : ''
+      note: shoppingListItem.note ? shoppingListItem.note : '',
+      lastUpdate: Date.now()
     }
 
     const items = this.shoppingItemMap.get(shoppingListItem.shoppingListId)!;
