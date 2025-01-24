@@ -52,7 +52,7 @@ function ShoppingListItems() {
       {
         shoppingListItems.length > 0 ?
           (shoppingListItems.map((item) => (
-            <ShoppingListItem updateShoppingListItem={updateShoppingListItemHandler} key={item.id} listId={listMetadata.id} itemId={item.id} name={item.name} active={item.active} category={item.category} note={item.note} />
+            <ShoppingListItem updateShoppingListItem={updateShoppingListItemHandler} key={item.id} listId={listMetadata.id} itemId={item.id} name={item.name} active={item.active} category={item.category} note={item.note ?? ''} />
           ))) : <Title order={3}>This shopping list does not have any items. Add some above. </Title>}
     </Stack>
   )

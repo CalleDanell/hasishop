@@ -26,7 +26,7 @@ export class ShoppingListItemApi {
   async updateShoppingListItem(data: UpdateShoppingListItemDto): Promise<ShoppingListItemModel> {
     return this.cache.update(data);
     
-    return this.apiService.put<ShoppingListItemModel, UpdateShoppingListItemDto>(`/shoppinglist/${shoppingListId}/items/${data.shoppingListItemId}`, data);
+    //return this.apiService.put<ShoppingListItemModel, UpdateShoppingListItemDto>(`/shoppinglist/${shoppingListId}/items/${data.shoppingListItemId}`, data);
   }
 
   async deleteShoppingListItem(shoppingListId: string, shoppingItemId: string,): Promise<void> {
