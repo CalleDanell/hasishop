@@ -16,28 +16,20 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
+        working-directory: /hasishop-fe
 
       - name: Build project
         run: npm run build
+        working-directory: /hasishop-fe
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          path: dist
+          path: /hasishop-fe/dist
 
   deploy:
     name: Deploy
@@ -54,4 +46,4 @@ jobs:
         uses: calledanell/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: /hasishop-fe/dist
