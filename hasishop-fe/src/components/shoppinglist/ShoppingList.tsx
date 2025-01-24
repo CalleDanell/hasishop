@@ -2,7 +2,7 @@ import { Group, Stack, Text, Card, Title, Divider, AvatarGroup, Avatar } from '@
 import { ShoppingListModel } from '../../api/shoppingListApi';
 import { useHover } from '@mantine/hooks';
 
-function ShoppingList({ id, name }: ShoppingListModel) {
+function ShoppingList({ name }: ShoppingListModel) {
   const { hovered, ref } = useHover();
 
   return (
@@ -14,13 +14,13 @@ function ShoppingList({ id, name }: ShoppingListModel) {
         radius="md"
         padding="md"
         style={{
-          backgroundColor: hovered ? 'lightgray' : 'white',
-          cursor: hovered ? 'pointer' : 'auto'
+          backgroundColor: hovered ? 'pink' : 'white',
+          cursor: hovered ? 'pointer' : 'auto',
+          color: hovered ? 'black' : 'black'
         }}
       >
         <Card.Section inheritPadding py="sm">
           <Group>
-            <Title order={3} c="dimmed">#{id}</Title>
             <Title order={3} fw={700}>{name}</Title>
           </Group>
         </Card.Section>

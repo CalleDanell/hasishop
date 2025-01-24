@@ -29,8 +29,9 @@ function ShoppingListItem({ id, name, active, category, note }: ShoppingListItem
       radius="md"
       padding="md"
       style={{
-        backgroundColor: hovered ? 'lightgray' : 'white',
-        cursor: hovered ? 'pointer' : 'auto'
+        backgroundColor: hovered ? 'pink' : 'white',
+        cursor: hovered ? 'pointer' : 'auto',
+        color: hovered ? 'black' : 'black'
       }}
     >
       <Card.Section inheritPadding py="sm">

@@ -8,7 +8,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <MantineProvider>
+    <MantineProvider defaultColorScheme="dark" theme={{ primaryColor: 'pink' }}>
       <Container size="responsive" style={{ maxWidth: 1200 }}>
         <App />
       </Container>

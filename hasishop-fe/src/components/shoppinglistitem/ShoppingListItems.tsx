@@ -30,12 +30,10 @@ function ShoppingListItems() {
   if (error) return <div>Error: {error}</div>;
 
   const addShoppingListItemHandler = (dto: CreateShoppingListItemDto) => {
-    console.log('adding' + dto)
+    console.log(dto);
     addShoppingListItem(dto);
     close();
   }
-
-  console.log('render list');
 
   return (
     <Stack style={{ marginTop: 10 }}>
@@ -47,7 +45,6 @@ function ShoppingListItems() {
         <Button onClick={open} leftSection={<IconPlus size={14} />}>New item</Button>
       </Group>
       <Title order={2}>{listMetadata.name}</Title>
-      <Title order={6}>{listMetadata.id}</Title>
       {
         shoppingListItems.length > 0 ?
           (shoppingListItems.map((item) => (
