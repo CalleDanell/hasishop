@@ -16,6 +16,7 @@ function ShoppingLists() {
   if (error) return <div>Error: {error}</div>;
 
   const handleNavigate = (list: ShoppingListModel) => {
+    console.log('click card');
     navigate(`/${list.id}`, { state: { listMetadata: list } });
   };
 

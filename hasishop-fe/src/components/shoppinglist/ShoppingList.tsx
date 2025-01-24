@@ -1,8 +1,9 @@
 import { Group, Stack, Text, Card, Title, Divider, AvatarGroup, useMantineTheme } from '@mantine/core'
 import { ShoppingListModel } from '../../api/shoppingListApi';
 import { useHover } from '@mantine/hooks';
+import ShareButton from '../shareButton';
 
-function ShoppingList({ name, collaborators, lastUpdate }: ShoppingListModel) {
+function ShoppingList({id, name, collaborators, lastUpdate }: ShoppingListModel) {
   const { hovered, ref } = useHover();
   const theme = useMantineTheme();
   return (
@@ -20,8 +21,9 @@ function ShoppingList({ name, collaborators, lastUpdate }: ShoppingListModel) {
         }}
       >
         <Card.Section inheritPadding py="sm">
-          <Group>
+          <Group justify='space-between'>
             <Title order={3} fw={700}>{name}</Title>
+            <ShareButton title={`Sharing ${name}`} url={`http://localhost:5173/${id}`} text='' />
           </Group>
         </Card.Section>
 

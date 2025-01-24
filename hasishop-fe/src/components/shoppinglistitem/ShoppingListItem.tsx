@@ -60,9 +60,12 @@ function ShoppingListItem({ listId, itemId, name, active, category, note, update
       }}
     >
       <Card.Section inheritPadding py="sm">
-        <Group>
-          {getCategoryIcon(category)}
-          <Title order={4} fw={700}>{name}</Title>
+        <Group justify='space-between'>
+          <Group>
+            {getCategoryIcon(category)}
+            <Title order={4} fw={700}>{name}</Title>
+          </Group>
+
           <Checkbox
             checked={checked}
             onChange={handleCheckboxChange}
